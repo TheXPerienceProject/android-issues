@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+  - cron: 0 5 * * 3
+name: Weekly Issue Closure
+jobs:
+  cycle-weekly-close:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: weekly-issue-closure
+      uses: bdougie/close-issues-based-on-label@master
+      env:
+        LABEL: invalid
+        GITHUB_TOKEN: ${{ secrets.BADGE_TOKEN }}
